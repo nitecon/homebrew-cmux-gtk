@@ -1,6 +1,6 @@
 cask "cmux-gtk" do
-  version "0.1.0"
-  sha256 "8b2b0d0c4e905e00bedc057b30ff290109f657d72838dae8730dd23c8f12d4b9"
+  version "0.1.1"
+  sha256 "72f16e3fb583a36f7b837d82e61e0e04f8fa52453f92fbb63f2227d223c01494"
 
   url "https://github.com/nitecon/cmux-gtk/releases/download/v#{version}/cmux-gtk-linux-x86_64.tar.gz"
   name "cmux GTK"
@@ -18,7 +18,6 @@ cask "cmux-gtk" do
     fontconfig
     freetype
     gtk4
-    libxml2
     llvm
     oniguruma
   ]
@@ -26,13 +25,13 @@ cask "cmux-gtk" do
   command_wrapper "cmux",
                   content: <<~SH
                     #!/bin/sh
-                    export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/libxml2/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+                    export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
                     exec "#{staged_path}/cmux" "$@"
                   SH
   command_wrapper "cmux-app",
                   content: <<~SH
                     #!/bin/sh
-                    export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/libxml2/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+                    export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
                     exec "#{staged_path}/cmux-app" "$@"
                   SH
   artifact "share/applications/io.cmux.App.desktop",
