@@ -1,6 +1,6 @@
 cask "cmux-gtk" do
-  version "0.1.1"
-  sha256 "72f16e3fb583a36f7b837d82e61e0e04f8fa52453f92fbb63f2227d223c01494"
+  version "0.1.2"
+  sha256 "6be4a29378510ed8c1732c1a6ece723059b695c3c2c1330f52cb3d10406b03dc"
 
   url "https://github.com/nitecon/cmux-gtk/releases/download/v#{version}/cmux-gtk-linux-x86_64.tar.gz"
   name "cmux GTK"
@@ -25,14 +25,16 @@ cask "cmux-gtk" do
   command_wrapper "cmux",
                   content: <<~SH
                     #!/bin/sh
-                    export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
                     exec "#{staged_path}/cmux" "$@"
                   SH
   command_wrapper "cmux-app",
                   content: <<~SH
                     #!/bin/sh
-                    export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-                    exec "#{staged_path}/cmux-app" "$@"
+                    app="#{staged_path}/cmux-app"
+                    if ldd "$app" 2>/dev/null | grep -q "not found"; then
+                      export LD_LIBRARY_PATH="#{HOMEBREW_PREFIX}/opt/llvm/lib:#{HOMEBREW_PREFIX}/opt/gtk4/lib:#{HOMEBREW_PREFIX}/opt/fontconfig/lib:#{HOMEBREW_PREFIX}/opt/freetype/lib:#{HOMEBREW_PREFIX}/opt/oniguruma/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+                    fi
+                    exec "$app" "$@"
                   SH
   artifact "share/applications/io.cmux.App.desktop",
            target: "#{Dir.home}/.local/share/applications/io.cmux.App.desktop"
