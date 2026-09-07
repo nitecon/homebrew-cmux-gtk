@@ -1,6 +1,6 @@
 cask "cmux-gtk" do
-  version "0.1.9"
-  sha256 "a6b7f7253e9d8e7c475c6f8b792ec3a25c77b007b0b7727a933a1d724e00edf0"
+  version "0.2.0"
+  sha256 "f8bc9c9017c25d0de35a0c787228e3f2d367dd4ead8c1db087c9f2ea9c9a2c92"
 
   url "https://github.com/nitecon/cmux-gtk/releases/download/v#{version}/cmux-gtk-linux-x86_64.tar.gz"
   name "cmux GTK"
@@ -19,6 +19,7 @@ cask "cmux-gtk" do
     freetype
     gtk4
     llvm
+    libnotify
     oniguruma
   ]
 
