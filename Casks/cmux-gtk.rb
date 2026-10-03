@@ -12,7 +12,6 @@ cask "cmux-gtk" do
     strategy :github_latest
   end
 
-  depends_on :linux
   depends_on arch: :x86_64
   depends_on formula: %w[
     fontconfig
@@ -22,6 +21,7 @@ cask "cmux-gtk" do
     libnotify
     oniguruma
   ]
+  depends_on :linux
 
   command_wrapper "cmux",
                   content: <<~SH
@@ -46,8 +46,7 @@ cask "cmux-gtk" do
   artifact "share/icons/hicolor/256x256/apps/io.cmux.App.png",
            target: "#{Dir.home}/.local/share/icons/hicolor/256x256/apps/io.cmux.App.png"
 
-  preflight do
-    desktop_file = staged_path/"share/applications/io.cmux.App.desktop"
-    desktop_file.write desktop_file.read.sub(/^Exec=cmux-app$/, "Exec=#{HOMEBREW_PREFIX}/bin/cmux-app")
+  preflight_steps do
+    inreplace "share/applications/io.cmux.App.desktop", /^Exec=cmux-app$/, "Exec={{HOMEBREW_PREFIX}}/bin/cmux-app"
   end
 end
