@@ -1,6 +1,6 @@
 cask "cmux-gtk" do
-  version "0.6.1"
-  sha256 "3528252525e83ff08d24bfb99b9484bf4ca5cef39a558f76c92da5ba0ed1a8ff"
+  version "0.6.2"
+  sha256 "14ecf8907987f521108e9a5a268a132740ae036a2092c61f987f9e67737135ab"
 
   url "https://github.com/nitecon/cmux-gtk/releases/download/v#{version}/cmux-gtk-linux-x86_64.tar.gz"
   name "cmux GTK"
